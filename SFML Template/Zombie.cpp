@@ -132,7 +132,7 @@ void Zombie::FixedUpdate(float dt)
 		case State::Die: {
 			if (beforeState == State::Alive) {
 				hpBoxFrame.setOutlineColor(sf::Color::Transparent);
-				hpBox.setOutlineColor(sf::Color::Transparent);
+				hpBox.setFillColor(sf::Color::Transparent);
 				bloodTimer = 0;
 				body.setTexture(TEXTURE_MGR.Get(textureIdBlood));
 				sortingOrder = -2;
@@ -210,6 +210,7 @@ void Zombie::OnDamage(int d)
 		beforeState = State::Alive;
 		currentState = State::Die;		
 		sceneGame->OnGetScore();
+		hp = 0;
 	}
 
 }

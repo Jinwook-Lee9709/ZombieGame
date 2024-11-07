@@ -64,11 +64,12 @@ void Player::Init()
 		0, 0.05f, 26);
 	animIdle.SetScale(0.5f, 0.5f);
 	animIdle2.SetScale(0.5f, 0.5f);
-	animIdle.SetPosition(position - sf::Vector2f{ 301.f, 203.f } );
+	animIdle.SetPosition(position - sf::Vector2f{ 301.f, 203.f });
 	animIdle2.SetPosition(position - sf::Vector2f{ 301.f, 203.f });
 	glaiveRect.setSize({ 602, 406 });
 	glaiveRect.setScale({ 0.31f, 0.31f });
 	glaiveRect.setFillColor(sf::Color::Red);
+
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 0;
 
@@ -83,7 +84,7 @@ void Player::Reset()
 {
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 	hp = maxHp = 100;
-	clip = clipSize= 7;
+	clip = clipSize = 7;
 	ammo = 50;
 	reloadTimer = 0;
 
@@ -91,6 +92,9 @@ void Player::Reset()
 
 	moveableBounds = sceneGame->GetMoveableBounds();
 	body.setTexture(TEXTURE_MGR.Get(textureId), true);
+	sword.setTexture(TEXTURE_MGR.Get("graphics/sword.png"), true);
+	sword.setScale({ 0.2f, 0.2f });
+	Utils::SetOrigin(sword, Origins::MC);
 	SetOrigin(originPreset);
 	SetPosition({ 0.f, 0.f });
 	SetRotation(0.f);
@@ -109,7 +113,7 @@ void Player::Update(float dt)
 	float mag = Utils::Magnitude(direction);
 	if (mag > 1.f)
 	{
-		 Utils::Normalize(direction);
+		Utils::Normalize(direction);
 	}
 
 	sf::Vector2i mousePos = InputMgr::GetMousePosition();
@@ -138,7 +142,7 @@ void Player::Update(float dt)
 		if (reloadFlag == true && clip != clipSize) {
 			reloadFlag = false;
 			reload.setFillColor(sf::Color::Yellow);
-			reload.setSize({ (float)body.getTextureRect().width, 10.f});
+			reload.setSize({ (float)body.getTextureRect().width, 10.f });
 			reload.setScale({ 0.f, 1.f });
 		}
 	}
@@ -171,7 +175,47 @@ void Player::Update(float dt)
 	sf::Vector2f pos = { position.x - 150.f + 150 * cosf(glaivesAngle), position.y - 100.f + 150 * sinf(glaivesAngle) };
 	animIdle.SetPosition(pos);
 	animIdle2.SetPosition(pos);
-	glaiveRect.setPosition(pos+sf::Vector2f{50.f,35.f});
+	glaiveRect.setPosition(pos + sf::Vector2f{ 50.f,35.f });
+
+	const auto& list = sceneGame->GetZombieList();
+	if (targeted == false) {
+		Zombie* closetsZombie = nullptr;
+		float distance;
+		if (list.size() != 0) {
+			distance = std::numeric_limits<float>::max();
+			for (auto zombie : list) {
+				if (!zombie->IsAlive()) {
+					continue;
+				}
+				float temp_distance = Utils::Distance(position, zombie->GetPosition());
+				if (temp_distance < distance)
+				{
+					distance = temp_distance;
+					closetsZombie = zombie;
+				}
+
+			}
+			if (closetsZombie != nullptr)
+			{
+				targetedZombie = closetsZombie;
+				targeted = true;
+			}
+		}
+	}
+	sf::Vector2f swordPos = sword.getPosition();
+	if (std::find(list.begin(), list.end(), targetedZombie) != list.end() && targetedZombie->IsAlive()) {
+		sf::Vector2f zombiePos = targetedZombie->GetPosition();
+		direction = Utils::GetNormal(zombiePos - swordPos);
+		sword_direction = Utils::Lerp(sword_direction, direction, dt * 3.f);
+		Utils::Normalize(sword_direction);
+		//std::cout << sword_direction << std::endl;
+		swordPos += sword_direction * speed * dt;
+		sword.setRotation(Utils::Angle(sword_direction) + 90.f);
+		sword.setPosition(swordPos);
+	}
+	else {
+		targeted = false;
+	}
 }
 
 void Player::FixedUpdate(float dt)
@@ -186,7 +230,12 @@ void Player::FixedUpdate(float dt)
 		if ((glaiveRect.getGlobalBounds().intersects(zombie->GetGlobalBounds()))) {
 			zombie->OnGlaiveDamage(2);
 		}
-
+	}
+	if (targetedZombie != nullptr && targetedZombie->IsAlive()) {
+		if ((sword.getGlobalBounds().intersects(targetedZombie->GetGlobalBounds()))) {
+			targetedZombie->OnDamage(200);
+			targeted = false;
+		}
 	}
 }
 
@@ -194,9 +243,10 @@ void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
 	window.draw(reload);
+	window.draw(sword);
 	animIdle2.Draw(window);
 	animIdle.Draw(window);
-	
+
 	debugbox.Draw(window);
 }
 

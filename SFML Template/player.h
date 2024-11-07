@@ -5,11 +5,19 @@ class DebugBox;
 class Item;
 class UiHud;
 class Anim;
+class Zombie;
 
 class Player : public GameObject
 {
 protected:
 	sf::Sprite body;
+	sf::Sprite sword;
+	float sword_speed = 1000;
+	sf::Vector2f sword_direction = { 0.f, 1.f };
+	bool targeted = false;
+	Zombie* targetedZombie;
+	
+
 	std::string textureId = "graphics/player.png";
 
 	int maxHp = 100;
@@ -47,6 +55,8 @@ protected:
 
 	sf::RectangleShape glaiveRect;
 	float glaivesAngle;
+
+
 public:
 	Player(const std::string& name = "");
 	~Player() = default;
