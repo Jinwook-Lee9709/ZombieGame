@@ -83,7 +83,7 @@ void Player::Release()
 void Player::Reset()
 {
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
-	hp = maxHp = 100;
+	hp = maxHp = 5;
 	clip = clipSize = 7;
 	ammo = 50;
 	reloadTimer = 0;

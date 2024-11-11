@@ -62,6 +62,7 @@ public:
 	void UpdateUpgrade(float dt);
 	void Draw(sf::RenderWindow& window) override;
 
+	void OnLocalize(Languages lang) override;
 
 	void BufSelected();
 

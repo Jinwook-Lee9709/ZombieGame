@@ -127,7 +127,16 @@ void SceneGame::Update(float dt)
 	sf::Vector2f mousePos = ScreenToUi(InputMgr::GetMousePosition());
 	cursor.setPosition(mousePos);
 	Scene::Update(dt);
-
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	{
+		Variables::currentLang = Languages::Korean;
+		OnLocalize(Variables::currentLang);
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
+	{
+		Variables::currentLang = Languages::English;
+		OnLocalize(Variables::currentLang);
+	}
 
 	if (player != nullptr)
 	{
@@ -136,9 +145,7 @@ void SceneGame::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space)) {
 		Spawn(100);
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Num1)) {
-		uiUpgrade->SetActive(false);
-	}
+
 
 	switch(currentState) {
 		case State::PLAY: {
@@ -209,6 +216,12 @@ void SceneGame::Draw(sf::RenderWindow& window)
 	window.setView(uiView);
 	window.draw(cursor);
 	window.setView(saveView);
+}
+
+void SceneGame::OnLocalize(Languages lang)
+{
+	uiUpgrade->OnLocalize(lang);
+	uiGameOver->OnLocalize(lang);
 }
 
 

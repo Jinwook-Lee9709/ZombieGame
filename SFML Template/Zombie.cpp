@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "SceneGame.h"
 #include "DebugBox.h"
+#include "ZombieTable.h"
 
 Zombie::Zombie(const std::string& name)
 	: GameObject(name)
@@ -174,7 +175,13 @@ void Zombie::Draw(sf::RenderWindow& window)
 
 void Zombie::Set(Types type)
 {
-	switch (type)
+	const auto& data = ZOMBIE_TABLE->Get(type);
+	maxHp = data.maxHp;
+	speed = data.speed;
+	textureId = data.textureId;
+	this->type = type;
+	damage = 10;
+	/*switch (type)
 	{ 
 	case Types::Bloater:
 		textureId = "graphics/bloater.png";
@@ -197,7 +204,7 @@ void Zombie::Set(Types type)
 		this->type = type;
 		damage = 10;
 		break;
-	}
+	}*/
 	hp = maxHp;
 	body.setTexture(TEXTURE_MGR.Get(textureId));
 }

@@ -8,13 +8,23 @@ SceneDev2::SceneDev2() : Scene(SceneIds::Dev2)
 
 void SceneDev2::Init()
 {	
-	auto text = AddGo(new TextGo("fonts/DS-DIGI.ttf", "Scene Name"));
-
+	auto text1 = AddGo(new TextGo("fonts/BMJUA.ttf", "Scene Name1"));
+	auto text2 = AddGo(new TextGo("fonts/BMJUA.ttf", "Scene Name2"));
 	Scene::Init();
 
-	text->sortingLayer = SortingLayers::UI;
-	text->Set(25, sf::Color::White);
-	text->SetString("Dev 2");
+	auto st = new StringTable();
+	st -> Load();
+
+
+	text1->sortingLayer = SortingLayers::UI;
+	text1->Set(50, sf::Color::White);
+	text1->SetString("Hi");
+	text1->SetPosition({ 360, 300 });
+
+	text2->sortingLayer = SortingLayers::UI;
+	text2->Set(50, sf::Color::White);
+	text2->SetString("Hi");
+	text2->SetPosition({ 360, 500 });
 }
 
 void SceneDev2::Enter()
@@ -34,6 +44,16 @@ void SceneDev2::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
 		SCENE_MGR.ChangeScene(SceneIds::Dev1);
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	{
+		Variables::currentLang = Languages::Korean;
+		OnLocalize(Variables::currentLang);
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
+	{
+		Variables::currentLang = Languages::English;
+		OnLocalize(Variables::currentLang);
 	}
 }
 

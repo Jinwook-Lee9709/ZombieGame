@@ -2,7 +2,7 @@
 #include "UiGameOver.h"
 
 UiGameOver::UiGameOver(const std::string& name)
-	: GameObject(name)
+	: GameObject(name), text("")
 {
 }
 
@@ -35,19 +35,19 @@ void UiGameOver::SetOrigin(const sf::Vector2f& newOrigin)
 	originPreset = Origins::Custom;
 }
 
+
 void UiGameOver::Init()
 {
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 0;
 	float textSize = 150.f;
-	sf::Font& font = FONT_MGR.Get("fonts/zombiecontrol.ttf");
 	sf::Vector2f pos = 0.5f * FRAMEWORK.GetWindowSizeF();
-	text.setString("PRESS ENTER \n TO COTINUE");
-	text.setFont(font);
-	text.setPosition(pos);
-	text.setCharacterSize(textSize);
-	text.setFillColor(sf::Color::White);
-	Utils::SetOrigin(text, Origins::MC);
+	text = TextGo("fonts/BMJUA.ttf");
+	text.SetString("ContinueText");
+	text.SetPosition(pos);
+	text.SetCharacterSize(textSize);
+	text.SetFillColor(sf::Color::White);
+	text.SetOrigin(Origins::MC);
 
 
 
@@ -59,8 +59,7 @@ void UiGameOver::Release()
 
 void UiGameOver::Reset()
 {
-	sf::Font& font = FONT_MGR.Get("fonts/zombiecontrol.ttf");
-	text.setFont(font);
+	text.SetFont("fonts/BMJUA.ttf");
 }
 
 void UiGameOver::Update(float dt)
@@ -71,7 +70,12 @@ void UiGameOver::Draw(sf::RenderWindow& window)
 {
 	if (active == true)
 	{
-		window.draw(text);
+		text.Draw(window);
 	}
 	
+}
+
+void UiGameOver::OnLocalize(Languages lang)
+{
+	text.OnLocalize(lang);
 }

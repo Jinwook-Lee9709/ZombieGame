@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <iostream>
 #include <limits>
+#include <codecvt>
+
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -15,6 +17,10 @@
 #include "Defines.h"
 #include "Utils.h"
 #include "Singleton.h"
+#include "Variables.h"
+#include "DataTable.h"
+#include "StringTable.h"
+#include "DataTableMgr.h"
 #include "Framework.h"
 #include "InputMgr.h"
 #include "ResourceMgr.h"

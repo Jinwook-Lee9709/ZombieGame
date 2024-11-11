@@ -113,7 +113,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>.\SFML-2.6.1\include;.\Framework;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,7 +135,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>.\SFML-2.6.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,6 +148,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\DataTableMgr.cpp" />
+    <ClCompile Include="Framework\DataTable.cpp" />
     <ClCompile Include="Framework\Anim.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Framework\DebugBox.cpp" />
@@ -165,6 +167,7 @@
     </ClCompile>
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\SoundMgr.cpp" />
+    <ClCompile Include="Framework\StringTable.cpp" />
     <ClCompile Include="UiGameOver.cpp" />
     <ClCompile Include="UiUpgrade.cpp" />
     <ClCompile Include="UiHud.cpp" />
@@ -180,9 +183,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="Framework\Variables.cpp" />
     <ClCompile Include="Zombie.cpp" />
+    <ClCompile Include="Framework\ZombieTable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\DataTableMgr.h" />
+    <ClInclude Include="Framework\DataTable.h" />
     <ClInclude Include="Framework\Anim.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Framework\DebugBox.h" />
@@ -191,6 +198,7 @@
     <ClInclude Include="Framework\GameObject.h" />
     <ClInclude Include="Framework\InputMgr.h" />
     <ClInclude Include="Framework\ObjectPool.h" />
+    <ClInclude Include="Framework\rapidcsv.h" />
     <ClInclude Include="Framework\ResourceMgr.h" />
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Framework\SceneDev1.h" />
@@ -202,6 +210,7 @@
     <ClInclude Include="Framework\stdafx.h" />
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\SoundMgr.h" />
+    <ClInclude Include="Framework\StringTable.h" />
     <ClInclude Include="UiGameOver.h" />
     <ClInclude Include="UiUpgrade.h" />
     <ClInclude Include="UiHud.h" />
@@ -217,7 +226,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="Zombie.h" />
+    <ClInclude Include="Framework\ZombieTable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -122,5 +122,5 @@ void Bullet::Fire(const sf::Vector2f& pos, const sf::Vector2f& dir, float s, int
 
 	SetRotation(Utils::Angle(direction));
 	
-	SOUND_MGR.PlaySfx(SOUNDBUFFER_MGR.Get("sound/shoot.wav"), false);
+	/*SOUND_MGR.PlaySfx(SOUNDBUFFER_MGR.Get("sound/shoot.wav"), false);*/
 }

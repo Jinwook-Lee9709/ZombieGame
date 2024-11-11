@@ -3,6 +3,7 @@
 
 class Player;
 class ItemManager;
+class TextGo;
 
 class UiUpgrade : public GameObject
 {
@@ -20,7 +21,7 @@ public:
 
 protected:
 	sf::Sprite background;
-	std::vector<sf::Text> text;
+	std::vector<TextGo> text;
 
 
 	Player* player;
@@ -44,8 +45,7 @@ public:
 
 	void SetPlayer(Player* player);
 	void SetItemManager(ItemManager* mgr);
-
-
+	void OnLocalize(Languages Lang) override;
 
 	void CheckTextClick();
 };

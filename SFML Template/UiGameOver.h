@@ -1,10 +1,11 @@
 #pragma once
 #pragma once
 
+class TextGo;
 class UiGameOver : public GameObject
 {
 protected:
-	sf::Text text;
+	TextGo text;
 public:
 	UiGameOver(const std::string& name = "");
 	~UiGameOver() = default;
@@ -22,6 +23,6 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-
+	void OnLocalize(Languages lang);
 	
 };

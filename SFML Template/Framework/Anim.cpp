@@ -120,7 +120,11 @@ namespace fz {
     {
         for (int i = 0; i < count; ++i)
         {
-            auto [x, y, width, height] = rect;
+            auto x = rect.left;
+            auto y = rect.top;
+            auto width = rect.width;
+            auto height = rect.height;
+
             x += i * (width + stride);
             m_Frames.push_back({ {x, y, width, height}, durations[i]});
         }
@@ -134,7 +138,10 @@ namespace fz {
     {
         for (int i = count - 1; i >= 0; --i)
         {
-            auto [x, y, width, height] = rect;
+            auto x = rect.left;
+            auto y = rect.top;
+            auto width = rect.width;
+            auto height = rect.height;
             x += i * (width + stride);
             m_Frames.push_back({ {x, y, width, height}, durations[count - (i + 1)]});
         }
