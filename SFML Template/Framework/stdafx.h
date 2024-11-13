@@ -9,6 +9,8 @@
 #include <iostream>
 #include <limits>
 #include <codecvt>
+#include <functional>
+#include <fstream>
 
 
 #include <SFML/Graphics.hpp>
@@ -23,6 +25,7 @@
 #include "DataTableMgr.h"
 #include "Framework.h"
 #include "InputMgr.h"
+#include "Animator.h"
 #include "ResourceMgr.h"
 #include "GameObject.h"
 #include "TextGo.h"

@@ -1,5 +1,17 @@
 #pragma once
 #include "Scene.h"
+#include "json.hpp"
+
+using json = nlohmann::json;
+
+struct person {
+	std::string name;
+	std::vector<int> vec;
+	int age;
+
+	NLOHMANN_DEFINE_TYPE_INTRUSIVE(person, name, vec, age)
+};
+
 
 class SceneDev1 : public Scene
 {

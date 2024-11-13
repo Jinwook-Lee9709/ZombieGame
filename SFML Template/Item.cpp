@@ -2,6 +2,7 @@
 #include "Item.h"
 #include "Player.h"
 #include "ItemManager.h"
+#include "ItemTable.h"
 
 Item::Item(const std::string& name, const std::string& textureId)
 	: GameObject(name), textureId(textureId)
@@ -96,15 +97,7 @@ void Item::SetItemManager(ItemManager* address)
 void Item::Set(ItemTypes type)
 {
 	this->type = type;
-	switch(this->type){
-	case ItemTypes::Ammo:
-		textureId = "graphics/ammo_pickup.png";
-		ammo = 50;
-		break;
-	case ItemTypes::Medkit:
-		textureId = "graphics/health_pickup.png";
-		health = 50;
-		break;
-	}
+	textureId = ITEM_TABLE->Get(type).textureId;
+	amount = ITEM_TABLE->Get(type).amount;
 	body.setTexture(TEXTURE_MGR.Get(textureId), true);
 }

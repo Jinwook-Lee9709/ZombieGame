@@ -1,27 +1,19 @@
 #pragma once
+#include "AnimationClip.h"
 
-class Player;
-class ItemManager;
-class Item : public GameObject
+class AniPlayer : public GameObject
 {
-public:
-	enum class RecoveryType {
-		HEAL,
-		RESUPPLY
-	};
 protected:
 	sf::Sprite body;
-	std::string textureId;
-	Player* player;
+	Animator animator;
+	AnimationClip idle;
+	AnimationClip run;
+	AnimationClip jump;
 
-	int amount;
-
-	ItemTypes type;
-
-	ItemManager* itemManager;
+	float speed = 100.f;
 public:
-	Item(const std::string& name = "", const std::string& textureId = "");
-	~Item() = default;
+	AniPlayer(const std::string& name = "");
+	~AniPlayer() = default;
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float angle) override;
@@ -34,9 +26,5 @@ public:
 	void Release() override;
 	void Reset() override;
 	void Update(float dt) override;
-	void FixedUpdate(float dt)override;
 	void Draw(sf::RenderWindow& window) override;
-
-	void SetItemManager(ItemManager* address);
-	void Set(ItemTypes type);
 };

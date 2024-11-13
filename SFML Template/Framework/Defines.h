@@ -45,7 +45,7 @@ enum class Sides
 static enum class ItemTypes
 {
 	None = -1,
-	Ammo,
 	Medkit,
+	Ammo,
 	Count
 };

@@ -1,3 +1,3 @@
-Name,RecoveryType,RecoveryAmount
-Medkit,Hp,50
-Ammo,Ammo,50
+Name,RecoveryType,RecoveryAmount,textureId
+0,0,50,graphics/health_pickup.png
+1,1,50,graphics/ammo_pickup.png

@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "SceneDev2.h"
+#include "AniPlayer.h"
+#include "AniPlayer2.h"
 
 SceneDev2::SceneDev2() : Scene(SceneIds::Dev2)
 {
@@ -8,7 +10,10 @@ SceneDev2::SceneDev2() : Scene(SceneIds::Dev2)
 
 void SceneDev2::Init()
 {	
-	auto text1 = AddGo(new TextGo("fonts/BMJUA.ttf", "Scene Name1"));
+	AddGo(new AniPlayer2("Player"));
+	/*AddGo(new AniPlayer("ANI TEST"));*/
+	Scene::Init();
+	/*auto text1 = AddGo(new TextGo("fonts/BMJUA.ttf", "Scene Name1"));
 	auto text2 = AddGo(new TextGo("fonts/BMJUA.ttf", "Scene Name2"));
 	Scene::Init();
 
@@ -24,12 +29,14 @@ void SceneDev2::Init()
 	text2->sortingLayer = SortingLayers::UI;
 	text2->Set(50, sf::Color::White);
 	text2->SetString("Hi");
-	text2->SetPosition({ 360, 500 });
+	text2->SetPosition({ 360, 500 });*/
 }
 
 void SceneDev2::Enter()
 {
 	Scene::Enter();
+	worldView.setCenter(0.f, 0.f);
+	worldView.setSize(FRAMEWORK.GetWindowSizeF());
 }
 
 void SceneDev2::Exit()
@@ -41,7 +48,7 @@ void SceneDev2::Update(float dt)
 {
 	Scene::Update(dt);
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
+	/*if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
 		SCENE_MGR.ChangeScene(SceneIds::Dev1);
 	}
@@ -54,7 +61,7 @@ void SceneDev2::Update(float dt)
 	{
 		Variables::currentLang = Languages::English;
 		OnLocalize(Variables::currentLang);
-	}
+	}*/
 }
 
 void SceneDev2::Draw(sf::RenderWindow& window)
